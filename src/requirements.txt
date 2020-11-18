@@ -1,0 +1,20 @@
+# Flask
+Flask==1.1.2
+click==7.1.2
+
+# Database
+Flask-SQLAlchemy==2.4.4
+psycopg2-binary==2.8.6
+
+# Migrations
+Flask-Migrate==2.5.3
+
+# Deployment
+gunicorn==20.0.4 
+supervisor==4.2.1
+
+# Environment variable parsing
+environs==9.2.0
+
+# Other
+Scrapy==2.4.1
