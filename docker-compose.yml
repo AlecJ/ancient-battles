@@ -15,7 +15,8 @@ services:
       - "5432:5432"
 
   svc:
-    image: whowon
+    build: .
+    # image: whowon
     volumes:
       # edit the app on the fly
       - ./src:/app/src
