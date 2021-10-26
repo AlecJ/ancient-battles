@@ -4,14 +4,15 @@ api_blueprint = Blueprint('who_won', __name__)
 
 @api_blueprint.route('/')
 def index():
+    return "hello world"
     # update usage stats
 
     # create a new match
 
     # send question to user
 
-@api_blueprint.route('/answer')
-def answer():
+# @api_blueprint.route('/answer')
+# def answer():
     # expect a match id and a guess
 
     # if correct, respond with correct

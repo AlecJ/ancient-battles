@@ -6,11 +6,9 @@ COPY src/requirements.txt .
 # Cython needed first
 RUN pip install Cython==0.29.21
 RUN pip install -r requirements.txt
-# RUN apk del .build-deps
 
 # Copy Application Files
-COPY src/ .
-COPY auto_app.py .
+COPY src/ ./src
 COPY .env .
 
 # Set Entry/Command
