@@ -13,5 +13,75 @@ body {
 #container {
   max-width: 600px;
   max-height: 800px;
-  background-color: aqua;
+  /* background-color: aqua; */
+}
+
+
+
+#hints {
+  width: 100%;
+  min-width: 200px;
+  max-width: 800px;
+
+  height: 100%;
+  min-height: 300px;
+  max-height: 500px;
+
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+
+}
+
+h2 {
+  margin: 0;
+}
+
+.reveal {
+  width: 100%;
+
+  height: auto;
+  min-height: 60px;
+  max-height: 100px;
+
+  display: grid;
+  align-items: center;
+  justify-items: center;
+
+  background-color: gold;
+}
+
+
+
+#buttons {
+  width: 100%;
+  min-width: 200px;
+  max-width: 800px;
+
+  height: 100%;
+  min-height: 50px;
+  max-height: 100px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+
+}
+
+.btn {
+  width: 65%;
+  height: 75%;
+  border-radius: 8px;
+  
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+#left-btn {
+  /* background-color: blue; */
+}
+
+#right-btn {
+  /* background-color: red; */
 }
