@@ -1,9 +1,10 @@
-# whowon
+# Historic Battles
 Two leaders go in, one leader comes out. Which pictured leader won the battle?
 
-Simple Flask App with Vue.js Front End
+Flask App with VueJS Front End
 
 Python Scrapy package used for scraping wikipedia
+Celery used to automate scraping job and populate DB with cached battles
 
 
 ## Features
@@ -16,3 +17,18 @@ Bring up the site with:
 `docker-compose up`
 
 ## Database
+
+
+## To Do
+* Reveal button shows information - fades in
+* guess reveals answer and wikipedia page link
+* modal for answer?
+* python scraping
+* standardize data
+* python API
+* tests
+* Vue JS to get battle
+* tests
+* celery task for scraping
+* Report button for battles with incorrect information (or displayed improperly)
+* host on Heroku

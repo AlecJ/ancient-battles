@@ -11,7 +11,22 @@
   <body>
     <div id="app">
       <div id="container">
-        <div id="icons"></div>
+
+        <div id="battleName">
+          <h2>{{ name }}</h2>
+        </div>
+
+        <div id="icons">
+          <div id="leaderA" class="leaderImageContainer">
+            <img v-bind:src="leaderAImageLink">
+            <div id="leaderAName">{{ leaderAName }}</div>
+          </div>
+          <div id="leaderB" class="leaderImageContainer">
+            <img v-bind:src="leaderBImageLink">
+            <div id="leaderBName">{{ leaderBName }}</div>
+          </div>
+
+        </div>
 
         <div id="hints">
           <div id="Date">
