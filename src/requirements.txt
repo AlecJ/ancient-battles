@@ -21,4 +21,4 @@ supervisor==4.2.1
 environs==9.2.0
 
 # Other
-Scrapy==2.4.1
+Scrapy==2.5.1

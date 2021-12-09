@@ -12,3 +12,6 @@ env.read_env()
 ENV = env.str("FLASK_ENV", default="production")
 DEBUG = ENV == "development"
 SECRET_KEY = env.str("SECRET_KEY")
+
+print('test')
+print(ENV)
