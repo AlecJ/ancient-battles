@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="./assets/styles.css" />
     <!-- Import Vue.js -->
     <script src="https://unpkg.com/vue@next"></script>
+    <!-- Responsive Mobile Design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <div id="app">
@@ -21,6 +23,7 @@
             <img v-bind:src="leaderAImageLink">
             <div id="leaderAName">{{ leaderAName }}</div>
           </div>
+
           <div id="leaderB" class="leaderImageContainer">
             <img v-bind:src="leaderBImageLink">
             <div id="leaderBName">{{ leaderBName }}</div>

@@ -12,13 +12,19 @@ body {
 
 /* */
 #container {
-  max-width: 600px;
-  max-height: 800px;
-  /* background-color: aqua; */
+  width: 100%;
+  height: 100%;
+  max-width: 750px;
+  max-height: 1000px;
+  background-color: white;
+
+  display: grid;
+  grid-template-rows: 1fr 2fr 3fr 1fr;
 }
 
 /* Name of the Battle */
 #battleName {
+  font-size: 1.5rem;
   display: grid;
   align-items: center;
   justify-items: center;
@@ -76,6 +82,7 @@ img {
 
 h2 {
   margin: 0;
+  /* font-size: 1.2rem; */
 }
 
 .reveal {
@@ -83,7 +90,7 @@ h2 {
 
   height: auto;
   min-height: 60px;
-  max-height: 100px;
+  max-height: 200px;
 
   display: grid;
   align-items: center;
