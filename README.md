@@ -20,9 +20,10 @@ Bring up the site with:
 
 
 ## To Do
-* Reveal button shows information - fades in
-* guess reveals answer and wikipedia page link
-* modal for answer?
+* move results div up (hidden under leader pics)
+* guess scrolls hints and buttons down
+* guess scrolls in from top answer, link to wikipedia page, and NEXT button
+* use SCSS
 * python scraping
 * standardize data
 * python API

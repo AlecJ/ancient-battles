@@ -11,10 +11,27 @@ const app = Vue.createApp({
             leaderBName: 'Vercingetorix',
             leaderBImageLink: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Vercingetorix_stat%C3%A8re_MAN.jpg/800px-Vercingetorix_stat%C3%A8re_MAN.jpg',
             result: 'A',
+            showDate: false,
+            showLocation: false,
+            showBelligerents: false,
+            guessed: null,  // init as NULL, when a user guesses, it will become their guess, either A or B
         }
     },
     methods: {
-        test() {
+        revealDate() {
+            this.showDate = true
+        },
+        revealLocation() {
+            this.showLocation = true
+        },
+        revealBelligerents() {
+            this.showBelligerents = true
+        },
+        guessLeft() {
+            this.guessed = 'A'
+        },
+        guessRight() {
+            this.guessed = 'B'
         }
     }
 })
