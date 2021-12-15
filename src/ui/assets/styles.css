@@ -19,7 +19,8 @@ body {
   background-color: white;
 
   display: grid;
-  grid-template-rows: 1fr 2fr 3fr 1fr;
+  grid-template-rows: 1fr 2fr 4fr;
+  align-items: center;
 }
 
 /* Name of the Battle */
@@ -65,8 +66,8 @@ img {
   object-fit: contain;
 }
 
-/* Date, Location, and Belligerent Hints*/
-#hints {
+/* Container for Hints, Guessing Buttons, Results, and Go Next Button */
+#hints_and_result {
   width: 100%;
   min-width: 200px;
   max-width: 800px;
@@ -74,6 +75,33 @@ img {
   height: 100%;
   min-height: 300px;
   max-height: 500px;
+
+  overflow-y: hidden;
+}
+
+#hint_and_button_slider {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-rows: 3fr 1fr;
+
+  background-color:aquamarine;
+
+}
+
+#result_slider {
+  width: 100%;
+  height: 100%;
+
+  background-color:rebeccapurple;
+
+}
+
+/* Date, Location, and Belligerent Hints*/
+#hints {
+  width: 100%;
+  height: 100%;
 
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
@@ -97,6 +125,14 @@ h2 {
   justify-items: center;
 
   background-color: gold;
+}
+
+.fade_text {
+  animation: fadeIn linear 1s;
+  -webkit-animation: fadeIn linear 1s;
+  -moz-animation: fadeIn linear 1s;
+  -o-animation: fadeIn linear 1s;
+  -ms-animation: fadeIn linear 1s;
 }
 
 /* Guessing Buttons*/
@@ -132,4 +168,37 @@ h2 {
 
 #right-btn {
   /* background-color: red; */
+}
+
+
+
+
+
+
+
+/* Animations */
+
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
 }
