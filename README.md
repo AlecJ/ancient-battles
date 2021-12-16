@@ -20,10 +20,9 @@ Bring up the site with:
 
 
 ## To Do
-* move results div up (hidden under leader pics)
-* guess scrolls hints and buttons down
-* guess scrolls in from top answer, link to wikipedia page, and NEXT button
+* update NPM and install SCSS
 * use SCSS
+* VS icon between leaders
 * python scraping
 * standardize data
 * python API
@@ -33,3 +32,6 @@ Bring up the site with:
 * celery task for scraping
 * Report button for battles with incorrect information (or displayed improperly)
 * host on Heroku
+* local storage to track seen battles
+* battles are ordered, new players start at a random place in the order 
+* can shuffle DB by adding an order column

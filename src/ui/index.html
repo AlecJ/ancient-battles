@@ -39,8 +39,17 @@
 
             <div id="result_container">
               <div id="result" v-show="guessed">
-                <p v-if="guessed == result">You are correct!</p>
+                <p v-if="guessed == result">Correct!</p>
                 <p v-else>Incorrect!</p>
+              </div>
+              <div id="wikipedia_text">
+                <p>{{ wikipediaBlurb }}</p>
+              </div>
+              <div id="wikipedia_link">
+                <a v-bind:href="wikipediaLink">Read more on Wikipedia</a>
+              </div>
+              <div id="next_match_button">
+                <button id="next-btn" class="btn">Next Match</button>
               </div>
             </div>
 
