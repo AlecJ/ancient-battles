@@ -19,7 +19,7 @@ body {
   background-color: white;
 
   display: grid;
-  grid-template-rows: 1fr 2fr 4fr;
+  grid-template-rows: 2fr 4fr 1fr 7fr;
   align-items: center;
 }
 
@@ -31,7 +31,7 @@ body {
   justify-items: center;
 }
 
-/* Leader Images and Names */
+/* Leader Images */
 #icons {
   width: 100%;
   min-width: 200px;
@@ -53,35 +53,57 @@ body {
   height: 100%;
   min-height: 100px;
   max-height: 300px;
-
-  display: grid;
-  grid-template-rows: 1fr 20px;
-  align-items: center;
-  justify-items: center;
 }
 
 img {
   width: 100%;
+  max-width: 100%;
   height: 100%;
-  object-fit: contain;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+
+/* Leader Names */
+#leader_names {
+  min-height: 30px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  align-items: center;
+  justify-items: center;
 }
 
 /* Container for Hints, Guessing Buttons, Results, and Go Next Button */
-#hints_and_result {
+#hints_and_result_window {
   width: 100%;
-  min-width: 200px;
-  max-width: 800px;
-
   height: 100%;
-  min-height: 300px;
-  max-height: 500px;
 
   overflow-y: hidden;
 }
 
-#hint_and_button_slider {
+#hints_and_result_container {
   width: 100%;
-  height: 100%;
+  height: 200%;
+}
+
+#result_container {
+  width: 100%;
+  height: 50%;
+
+  background-color:rebeccapurple;
+
+  display: grid;
+  justify-items: center;
+  align-items: center;
+
+  z-index: -1;
+}
+
+#hint_and_button_container {
+  width: 100%;
+  height: 50%;
 
   display: grid;
   grid-template-rows: 3fr 1fr;
@@ -90,13 +112,18 @@ img {
 
 }
 
-#result_slider {
-  width: 100%;
-  height: 100%;
-
-  background-color:rebeccapurple;
-
+.slideUp {
+  transform: translateY(-50%);
 }
+
+.slideDown {
+  animation: slideDownFromTop ease-in-out 1s;
+  -webkit-animation: slideDownFromTop ease-out 0.8s;
+  -moz-animation: slideDownFromTop ease-out 0.8s;
+  -o-animation: slideDownFromTop ease-out 1s;
+  -ms-animation: slideDownFromTop ease-out 1s;
+}
+
 
 /* Date, Location, and Belligerent Hints*/
 #hints {
@@ -128,12 +155,13 @@ h2 {
 }
 
 .fade_text {
-  animation: fadeIn linear 1s;
-  -webkit-animation: fadeIn linear 1s;
-  -moz-animation: fadeIn linear 1s;
-  -o-animation: fadeIn linear 1s;
-  -ms-animation: fadeIn linear 1s;
+  animation: fadeIn ease-out 1s;
+  -webkit-animation: fadeIn ease-out 1s;
+  -moz-animation: fadeIn ease-out 1s;
+  -o-animation: fadeIn ease-out 1s;
+  -ms-animation: fadeIn ease-out 1s;
 }
+
 
 /* Guessing Buttons*/
 #buttons {
@@ -171,11 +199,6 @@ h2 {
 }
 
 
-
-
-
-
-
 /* Animations */
 
 @keyframes fadeIn {
@@ -199,6 +222,51 @@ h2 {
 }
 
 @-ms-keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
+  0% {top: -100%;}
+  100% {top: 0%;}
+}
+
+@keyframes slideDownFromTop {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+ }
+
+@-moz-keyframes slideDownFromTop {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+ @-webkit-keyframes slideDownFromTop {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+@-o-keyframes slideDownFromTop {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+@-ms-keyframes slideDownFromTop {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0%);
+  }
 }

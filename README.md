@@ -28,7 +28,7 @@ Bring up the site with:
 * standardize data
 * python API
 * tests
-* Vue JS to get battle
+* Vue JS to get battle from backend (vux?)
 * tests
 * celery task for scraping
 * Report button for battles with incorrect information (or displayed improperly)
