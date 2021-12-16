@@ -75,7 +75,16 @@ img {
   justify-items: center;
 }
 
-/* Container for Hints, Guessing Buttons, Results, and Go Next Button */
+
+/* 
+Container for Hints, Guessing Buttons, Results, and Go Next Button
+
+The window is the bottom half of the screen, and hides content that
+will later slide in (and replace the content that was there)
+
+The container is twice the size of the window so there is room for
+two slides
+*/
 #hints_and_result_window {
   width: 100%;
   height: 100%;
@@ -86,30 +95,6 @@ img {
 #hints_and_result_container {
   width: 100%;
   height: 200%;
-}
-
-#result_container {
-  width: 100%;
-  height: 50%;
-
-  background-color:rebeccapurple;
-
-  display: grid;
-  justify-items: center;
-  align-items: center;
-
-  z-index: -1;
-}
-
-#hint_and_button_container {
-  width: 100%;
-  height: 50%;
-
-  display: grid;
-  grid-template-rows: 3fr 1fr;
-
-  background-color:aquamarine;
-
 }
 
 .slideUp {
@@ -125,7 +110,90 @@ img {
 }
 
 
-/* Date, Location, and Belligerent Hints*/
+/* 
+Result, Wikipedia Blurb, and Next Match Button 
+
+This is initially hidden underneath the top half and slides down after
+the user guesses
+
+Container is a CSS grid, with four items
+Result, a wikipedia blurb, a link to the wikipedia page, and a button for the next match
+*/
+#result_container {
+  width: 100%;
+  height: 50%;
+
+  /* background-color:rebeccapurple; */
+
+  display: grid;
+  grid-template-rows: 6fr 4fr 1fr 4fr;
+  justify-items: center;
+  align-items: center;
+}
+
+#result {
+  width: 100%;
+  height: 100%;
+  background-color:rebeccapurple;
+
+  display: grid;
+  justify-items: center;
+  align-items: center;
+
+}
+
+#wikipedia_text {
+  width: 100%;
+  height: 100%;
+  background-color:aquamarine;
+
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+#wikipedia_link {
+  width: 100%;
+  height: 100%;
+  background-color:yellowgreen;
+
+  display: grid;
+  justify-items: right;
+  align-items: top;
+}
+
+a {
+  padding: 5px;
+}
+
+#next_match_button {
+  width: 100%;
+  height: 100%;
+  background-color:orange;
+
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+
+/*
+Date, Location, and Belligerent Hints
+
+This is the current slide in the hints_and_results_window and
+is slid down, out of view, after the user guesses.
+*/
+#hint_and_button_container {
+  width: 100%;
+  height: 50%;
+
+  display: grid;
+  grid-template-rows: 3fr 1fr;
+
+  /* background-color:aquamarine; */
+
+}
+
 #hints {
   width: 100%;
   height: 100%;
@@ -140,6 +208,7 @@ h2 {
   /* font-size: 1.2rem; */
 }
 
+/* Hints are clicked and the hint text fades in */
 .reveal {
   width: 100%;
 
