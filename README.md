@@ -22,6 +22,7 @@ Bring up the site with:
 ## To Do
 * update NPM and install SCSS
 * use SCSS
+* vector graphic for VS icon
 * VS icon between leaders
 * python scraping
 * standardize data
