@@ -27,9 +27,10 @@ Bring up the site with:
 * python scraping
 * standardize data
 * python API
-* tests
+* backend tests
+* automated testing with git connect
 * Vue JS to get battle from backend (vux?)
-* tests
+* frontend tests
 * celery task for scraping
 * Report button for battles with incorrect information (or displayed improperly)
 * host on Heroku
