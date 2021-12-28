@@ -24,6 +24,7 @@ Bring up the site with:
 * use SCSS
 * vector graphic for VS icon
 * VS icon between leaders
+* begin portfolio rebuild
 * python scraping
 * standardize data
 * python API
