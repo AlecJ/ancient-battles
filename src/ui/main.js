@@ -16,7 +16,7 @@ const app = Vue.createApp({
             showDate: false,
             showLocation: false,
             showBelligerents: false,
-            guessed: 5,  // init as NULL, when a user guesses, it will become their guess, either A or B
+            guessed: null,  // init as NULL, when a user guesses, it will become their guess, either A or B
         }
     },
     methods: {
