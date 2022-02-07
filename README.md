@@ -16,11 +16,14 @@ Bring up the site with:
 
 ## To Do
 * convert to react
+* setup scss
 * nodejs backend
 * configure web crawler
 * configure task runner
 * containerize
 * host on heroku
+
+* score card (see how wordle does it)
 
 
 __ old __
