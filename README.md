@@ -1,4 +1,4 @@
-# Historic Battles
+# Ancient Battles
 Two leaders go in, one leader comes out. Which pictured leader won the battle?
 
 React / Redux / NodeJS / __ js web spider __ / __ js task runner __
