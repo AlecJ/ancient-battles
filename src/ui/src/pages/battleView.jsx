@@ -4,6 +4,7 @@ import LeaderImages from '../components/leaderImages';
 import HintsResultsAndControlsContainer from '../components/hintsResultsAndControlsContainer';
 
 import styles from './styles/battleView.module.scss';
+import './styles/defaultStyles.scss';
 
 
 class BattleView extends Component {
