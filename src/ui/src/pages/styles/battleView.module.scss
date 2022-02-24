@@ -1,0 +1,29 @@
+h1,
+h2 {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  // .App-logo {
+  //   animation: App-logo-spin infinite 20s linear;
+  // }
+}
+
+.container {
+  width: 100vw;
+  max-width: 750px;
+  height: 100vh;
+  max-height: 1000px;
+
+  display: grid;
+  grid-template-rows: 3fr 6fr 1fr 10fr;
+
+  background-color: white;
+}
+
+.battleName {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  font-size: 1.5em;
+}
