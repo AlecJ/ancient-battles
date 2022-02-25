@@ -11,8 +11,8 @@ class Controls extends Component {
 
         return (
             <div className={styles.controlsContainer}>
-                  <button id="left-btn" className="btn" onClick={handleUserGuess}>Left</button>
-                  <button id="right-btn" className="btn">Right</button>
+                  <button id="left-btn" className="btn" onClick={() => {handleUserGuess('A')}}>Left</button>
+                  <button id="right-btn" className="btn" onClick={() => {handleUserGuess('B')}}>Right</button>
             </div> 
         );
     }

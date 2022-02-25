@@ -7,35 +7,40 @@ import styles from './styles/hintsAndResultsContainer.module.scss';
 
 
 class HintsResultsAndControlsContainer extends Component {
-    state = { 
-      userHasGuessed: false,
+    constructor(props) {
+        super(props);
+
+        this.state = { 
+            userIsCorrect: null,
+            answer: 'A',
+        }
     }
+    
 
-    handleUserGuess(guess) {
-      /*
-      The user selects either LEFT or RIGHT to make their guess
-      in the controls component. Once the user guesses, the result
-      window is revealed and the user can move on to the next battle.
-      */
-      // if (guess === 'A') {
+    handleUserGuess = (guess) => {
+        /*
+        The user selects either LEFT or RIGHT to make their guess
+        in the controls component. Once the user guesses, the result
+        window is revealed and the user can move on to the next battle.
+        */
+        const { answer } = this.state;
 
-      // } else if (guess === 'B') {
-      //   continue
-      // } else {
-      //   // raise exception
-      //   continue
-      // }
-      console.log('Click!')
-      this.setState({userHasGuessed: true})
+        if (guess === answer) {
+            this.setState({userIsCorrect: true})
+        } else {
+            this.setState({userIsCorrect: false})
+        }
     }
 
     render() {
-      const { userHasGuessed } = this.state
+      const { userIsCorrect } = this.state
+
+      console.log(userIsCorrect, !userIsCorrect, !!userIsCorrect);
 
       return (
           <div className={styles.hintsAndResultsWindow}>
-            <div className={`${styles.hintsAndResultsContainer} ${userHasGuessed ? styles.slideDown : styles.slideUp}`}>
-              <Results userHasGuessed={userHasGuessed} />
+            <div className={`${styles.hintsAndResultsContainer} ${userIsCorrect !== null ? styles.slideDown : styles.slideUp}`}>
+              <Results userIsCorrect={userIsCorrect} />
               <Hints />
               <Controls handleUserGuess={this.handleUserGuess} />
             </div>
