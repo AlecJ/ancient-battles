@@ -20,17 +20,17 @@ class LeaderImages extends Component {
             <React.Fragment>
                 <div className={styles.icons}>
                     <div id="leaderA" className={styles.leaderImageContainer}>
-                        <img src={ leaderAImageLink } />
+                        <img src={leaderAImageLink} />
                     </div>
         
                     <div id="leaderB" className={styles.leaderImageContainer}>
-                        <img src={ leaderBImageLink } />
+                        <img src={leaderBImageLink} />
                     </div>
                 </div>
     
                 <div className={styles.leaderNames}>
-                    <div id="leaderAName">{ leaderAName }</div>
-                    <div id="leaderBName">{ leaderBName }</div>
+                    <div id="leaderAName">{leaderAName}</div>
+                    <div id="leaderBName">{leaderBName}</div>
                 </div>
           </React.Fragment>
         );

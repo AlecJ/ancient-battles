@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import LeaderImages from '../components/leaderImages';
 import HintsResultsAndControlsContainer from '../components/hintsResultsAndControlsContainer';
 
@@ -19,7 +18,7 @@ class BattleView extends Component {
               <div className={styles.container}>
                 
                 <div className={styles.battleName}>
-                  <h2>{ battleName }</h2>
+                  <h2>{battleName}</h2>
                 </div>
         
                 <LeaderImages />

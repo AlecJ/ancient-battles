@@ -10,7 +10,8 @@ class Results extends Component {
     }
 
     render() {
-        const { wikipediaBlurb, userHasGuessed, wikipediaLink } = this.state;
+        const { wikipediaBlurb, wikipediaLink } = this.state;
+        const { userHasGuessed } = this.props;
 
         return (
             <div className={styles.resultsContainer}>
@@ -18,13 +19,13 @@ class Results extends Component {
                     {userHasGuessed ? <p>Correct!</p> : <p>Incorrect!</p>}
                 </div>
                 <div className={styles.wikipediaText}>
-                    <p>{ wikipediaBlurb }</p>
+                    <p>{wikipediaBlurb}</p>
                 </div>
                 <div className={styles.wikipediaLink}>
                     <a href={wikipediaLink}>Read more on Wikipedia</a>
                 </div>
                 <div className={styles.nextMatchBtnContainer}>
-                    <button className={"btn"}>Next Match</button>
+                    <button className="btn">Next Match</button>
                 </div>
             </div>
         );

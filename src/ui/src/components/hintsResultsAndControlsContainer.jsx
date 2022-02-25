@@ -8,18 +8,36 @@ import styles from './styles/hintsAndResultsContainer.module.scss';
 
 class HintsResultsAndControlsContainer extends Component {
     state = { 
-      guessed: false,
+      userHasGuessed: false,
+    }
+
+    handleUserGuess(guess) {
+      /*
+      The user selects either LEFT or RIGHT to make their guess
+      in the controls component. Once the user guesses, the result
+      window is revealed and the user can move on to the next battle.
+      */
+      // if (guess === 'A') {
+
+      // } else if (guess === 'B') {
+      //   continue
+      // } else {
+      //   // raise exception
+      //   continue
+      // }
+      console.log('Click!')
+      this.setState({userHasGuessed: true})
     }
 
     render() {
-      const { guessed } = this.state
+      const { userHasGuessed } = this.state
 
       return (
           <div className={styles.hintsAndResultsWindow}>
-            <div className={`${styles.hintsAndResultsContainer} ${guessed ? styles.slideDown : styles.slideUp}`}>
-              <Results />
+            <div className={`${styles.hintsAndResultsContainer} ${userHasGuessed ? styles.slideDown : styles.slideUp}`}>
+              <Results userHasGuessed={userHasGuessed} />
               <Hints />
-              <Controls />
+              <Controls handleUserGuess={this.handleUserGuess} />
             </div>
         </div>
       );

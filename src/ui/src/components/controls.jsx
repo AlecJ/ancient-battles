@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 
-class Controls extends Component {
-    state = {  } 
-    render() { 
-        return <h1>Controls</h1>;
+import styles from './styles/controls.module.scss'
 
-                        {/* <div id="buttons">
-                  <button id="left-btn" class="btn" @click="guessLeft">Left</button>
-                  <button id="right-btn" class="btn" @click="guessRight">Right</button>
-                </div> */}
+class Controls extends Component {
+    state = {  }
+
+
+    render() {
+        const { handleUserGuess } = this.props
+
+        return (
+            <div className={styles.controlsContainer}>
+                  <button id="left-btn" className="btn" onClick={handleUserGuess}>Left</button>
+                  <button id="right-btn" className="btn">Right</button>
+            </div> 
+        );
     }
 }
  

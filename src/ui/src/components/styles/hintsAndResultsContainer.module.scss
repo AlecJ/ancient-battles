@@ -29,4 +29,49 @@ two slides
     -o-animation: slideDownFromTop ease-out 1s;
     -ms-animation: slideDownFromTop ease-out 1s;
   }
+
+  @keyframes slideDownFromTop {
+    from {
+      transform: translateY(-50%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+
+  @-moz-keyframes slideDownFromTop {
+    from {
+      transform: translateY(-50%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+
+  @-webkit-keyframes slideDownFromTop {
+    from {
+      transform: translateY(-50%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+
+  @-o-keyframes slideDownFromTop {
+    from {
+      transform: translateY(-50%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+
+  @-ms-keyframes slideDownFromTop {
+    from {
+      transform: translateY(-50%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
 }
