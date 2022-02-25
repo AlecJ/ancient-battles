@@ -1,0 +1,64 @@
+/* 
+  Result, Wikipedia Blurb, and Next Match Button 
+  
+  This is initially hidden underneath the top half and slides down after
+  the user guesses
+  
+  Container is a CSS grid, with four items
+  Result, a wikipedia blurb, a link to the wikipedia page, and a button for the next match
+  */
+.resultsContainer {
+  width: 100%;
+  height: 50%;
+
+  /* background-color:rebeccapurple; */
+
+  display: grid;
+  grid-template-rows: 6fr 4fr 1fr 4fr;
+  justify-items: center;
+  align-items: center;
+
+  .result {
+    width: 100%;
+    height: 100%;
+    background-color: rebeccapurple;
+
+    display: grid;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .wikipediaText {
+    width: 100%;
+    height: 100%;
+    background-color: aquamarine;
+
+    display: grid;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .wikipediaLink {
+    width: 100%;
+    height: 100%;
+    background-color: yellowgreen;
+
+    display: grid;
+    justify-items: right;
+    align-items: top;
+
+    a {
+      padding: 5px;
+    }
+  }
+
+  .nextMatchBtnContainer {
+    width: 100%;
+    height: 100%;
+    background-color: orange;
+
+    display: grid;
+    justify-items: center;
+    align-items: center;
+  }
+}

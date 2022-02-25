@@ -24,7 +24,7 @@ Bring up the site with:
 - redux (2 hr)
 - flask backend (2 hr)
 - database (1 hr)
-- database - seed (1 hr)
+- database - seed - 10 battles (1 hr)
 - flask - api routes (2 hr)
 - react - api (2 hr)
 - dockerize (2 hr)

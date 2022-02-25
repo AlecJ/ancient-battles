@@ -10,9 +10,10 @@ h2 {
 }
 
 .container {
-  width: 100vw;
+  width: 100%;
   max-width: 750px;
-  height: 100vh;
+  height: 100%;
+  min-height: 670px;
   max-height: 1000px;
 
   display: grid;

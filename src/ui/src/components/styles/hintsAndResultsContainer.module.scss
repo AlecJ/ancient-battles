@@ -1,0 +1,77 @@
+/* 
+Container for Hints, Guessing Buttons, Results, and Go Next Button
+
+The window is the bottom half of the screen, and hides content that
+will later slide in (and replace the content that was there)
+
+The container is twice the size of the window so there is room for
+two slides
+*/
+.hintsAndResultsWindow {
+  width: 100%;
+  height: 100%;
+
+  overflow-y: hidden;
+
+  .hintsAndResultsContainer {
+    width: 100%;
+    height: 200%;
+  }
+
+  .slideUp {
+    transform: translateY(-50%);
+  }
+
+  .slideDown {
+    animation: slideDownFromTop ease-in-out 1s;
+    -webkit-animation: slideDownFromTop ease-out 0.8s;
+    -moz-animation: slideDownFromTop ease-out 0.8s;
+    -o-animation: slideDownFromTop ease-out 1s;
+    -ms-animation: slideDownFromTop ease-out 1s;
+  }
+
+  @keyframes slideDownFromTop {
+    from {
+      transform: translateY(-50%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+
+  @-moz-keyframes slideDownFromTop {
+    from {
+      transform: translateY(-50%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+
+  @-webkit-keyframes slideDownFromTop {
+    from {
+      transform: translateY(-50%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+
+  @-o-keyframes slideDownFromTop {
+    from {
+      transform: translateY(-50%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+
+  @-ms-keyframes slideDownFromTop {
+    from {
+      transform: translateY(-50%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+}
