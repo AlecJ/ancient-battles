@@ -16,7 +16,7 @@ services:
 
   svc:
     build: .
-    # image: whowon
+    # image: battles
     volumes: ["./src:/app/src",
               ".env:/app/.env"]
     ports: ["5000:5000"]
@@ -24,3 +24,13 @@ services:
     #   - pgsql
     tty: true
     command: bash
+
+  # test:
+  #   image: python:3.9-slim
+  #   volumes: ["./src:/app/src",
+  #             ".env:/app/.env"]
+  #   ports: ["5000:5000"]
+  #   # depends_on:
+  #   #   - pgsql
+  #   tty: true
+  #   command: bash
