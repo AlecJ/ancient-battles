@@ -19,16 +19,18 @@ Bring up the site with:
 
 ## Tasks
 
-- flask backend (2 hr)
+- dotenv (.5 hr)
 - database (1 hr)
-- database - seed - 10 battles (1 hr)
+- scraping (3 hr)
+- celery job (1 hr)
+- database - seed - 10 battles (.5 hr)
 - flask - api routes (2 hr)
-- react - api (2 hr)
+- react - api (1 hr)
 - redux (2 hr)
-- dockerize (2 hr)
+- build react + uwsgi (3 hr)
 - host on heroku (1 hr)
 
--- MVP (13 hr)
+-- MVP (15 hr)
 
 - backend tests
 - automated testing with git connect

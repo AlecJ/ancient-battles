@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy Application Files
 COPY src/ ./src
 COPY auto_app.py .
-COPY .env .
+COPY .env.SAMPLE .env
 
 # Set Entry/Command
 EXPOSE 5000
