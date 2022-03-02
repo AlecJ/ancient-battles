@@ -19,18 +19,16 @@ Bring up the site with:
 
 ## Tasks
 
-- react bind (.5 hr)
-- page in react (3 hr, 1 hr remaining)
-- redux (2 hr)
 - flask backend (2 hr)
 - database (1 hr)
 - database - seed - 10 battles (1 hr)
 - flask - api routes (2 hr)
 - react - api (2 hr)
+- redux (2 hr)
 - dockerize (2 hr)
 - host on heroku (1 hr)
 
--- MVP (14.5 hr)
+-- MVP (13 hr)
 
 - backend tests
 - automated testing with git connect
