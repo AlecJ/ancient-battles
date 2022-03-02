@@ -4,23 +4,23 @@ volumes:
   pgdata:
 
 services:
-  # pgsql:
-  #   image: postgres:11.7
-  #   environment:
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=secret
-  #   volumes:
-  #     - pgdata:/var/lib/postgresql/data
-  #   ports:
-  #     - "5432:5432"
+  pgsql:
+    image: postgres:14.2
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
 
-  svc:
+  flask:
     build: .
     # image: battles
     volumes: ["./src:/app/src",
               ".env:/app/.env"]
     ports: ["5000:5000"]
-    # depends_on:
-    #   - pgsql
+    depends_on:
+      - pgsql
     tty: true
     # command: bash

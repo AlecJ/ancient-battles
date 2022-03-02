@@ -3,6 +3,7 @@ Main app module.
 
 Contains the app factory function.
 """
+from src.util import config, loggingFactory
 # import logging
 # import sys
 
@@ -10,6 +11,9 @@ from flask import Flask
 # from extensions import db, migrate
 from src.api import api_blueprint
 
+
+_getLogger = loggingFactory('app')
+logger = _getLogger('__main__')
 
 def create_app():  # config_object="settings"):
     app = Flask(__name__.split(".")[0])
@@ -22,6 +26,7 @@ def create_app():  # config_object="settings"):
     # migrate.init_app(app, db)
 
     # configure_logger(app)
+    logger.info('Running environment: {}'.format(config.ENVIRONMENT))
     return app
 
 
