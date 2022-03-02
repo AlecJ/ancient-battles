@@ -1,19 +1,20 @@
 from flask import Blueprint
+from flask_restful import Api, Resource
 
 api_blueprint = Blueprint('battle_api', __name__)
+api = Api(api_blueprint)
 
 
-@api_blueprint.route('/')
-def index():
-    return "hello world"
-    # update usage stats
+class BattleItem(Resource):
+    def get(self):
+        return {'name': 'Battle of Alesia',
+                '': ''}
 
-    # create a new match
-
-    # send question to user
+api.add_resource(BattleItem, '/')
 
 
-@api_blueprint.route('/battle')
-def battle():
-    return {'name': 'Battle of Alesia',
-            '': ''}, 200
+# class TodoItem(Resource):
+#     def get(self, id):
+#         return {'task': 'Say "Hello, World!"'}
+
+# api.add_resource(TodoItem, '/todos/<int:id>')
