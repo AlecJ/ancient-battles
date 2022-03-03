@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from src.util import config, loggingFactory
 from src.api import api_blueprint
-from src.model import db, migrate
+from src.models import db, migrate
 
 _getLogger = loggingFactory('app')
 

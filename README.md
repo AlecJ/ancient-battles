@@ -30,14 +30,15 @@ If you need to make changes to the database, update or add db classes, then run:
 
 ## Tasks
 
-- scraping (3 hr)
 - session (1 hr)
+- flask - api routes (2 hr)
+- scraping (3 hr)
 - celery job (1 hr)
 - database - seed - 10 battles (.5 hr)
-- flask - api routes (2 hr)
 - react - api (1 hr)
 - redux (2 hr)
-- build react + uwsgi (3 hr)
+- local storage (1 hr)
+- build react + uwsgi (2 hr)
 - host on heroku (1 hr)
 
 -- MVP (14.5 hr)

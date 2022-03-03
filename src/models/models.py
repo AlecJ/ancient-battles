@@ -1,4 +1,4 @@
-from src.model import db
+from src.models import db
 import enum
 
 

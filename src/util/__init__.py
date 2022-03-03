@@ -2,11 +2,10 @@ import os
 import logging
 import logging.config
 from environs import Env
-# from contextlib import contextmanager
+from contextlib import contextmanager
 import sqlalchemy
-# from sqlalchemy.orm import sessionmaker
-# from sqlalchemy.ext.declarative import declarative_base
-# from sqlalchemy_utils import database_exists, create_database
+from sqlalchemy.orm import sessionmaker
+
 
 '''
 Config and Environment
@@ -88,21 +87,24 @@ def loggingFactory(module):
 Session Management
 '''
 
-# Session = None
+Session = None
 
-# @contextmanager
-# def session_scope():
-#     """Provide a transactional scope around a series of operations."""
-#     # Init session
-#     if Session is None:
-#         Session = sessionmaker(bind=config.engine)
+@contextmanager
+def session_scope():
+    """
+    Provide a transactional scope around a series of operations.
+    """
+    # Init session
+    global Session
+    if Session is None:
+        Session = sessionmaker(bind=config.engine)
 
-#     session = Session()
-#     try:
-#         yield session
-#         session.commit()
-#     except:
-#         session.rollback()
-#         raise
-#     finally:
-#         session.close()
+    session = Session()
+    try:
+        yield session
+        session.commit()
+    except:
+        session.rollback()
+        raise
+    finally:
+        session.close()
