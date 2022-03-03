@@ -46,3 +46,17 @@ class Battle(db.Model):
 
     def __repr__(self):
         return "Battle(id={}, battleName={}, created_time={})".format(self.id, self.battleName, self.created_time)
+
+
+class Statistic(db.Model):
+    """
+    Track user stats such as # of users, match-ups, success rate.
+
+    Should only have 1 record.
+    """
+    id = db.Column(db.Integer(), primary_key=True)
+    num_page_hits = db.Column(db.Integer())
+    num_battles = db.Column(db.Integer())
+    num_success = db.Column(db.Integer())
+    num_failure = db.Column(db.Integer())
+    last_used_time = db.Column(db.TIMESTAMP(timezone=True), nullable=False)
