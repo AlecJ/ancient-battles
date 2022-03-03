@@ -8,18 +8,28 @@ Using Wikipedia battle entries, this app pulls a collection of battles that have
 
 ## Setup
 
-Install node version 16.14.0
+### Run with Docker
 
-First create a `.env` file in the base directory and include the following fields:
+Copy the `.env.SAMPLE` file and rename it `.env`.
+
+Set your POSTGRES_USER and POSTGRES_PASSWORD variables in the `docker-compose.yml` file.
+
+In the `.env` file, update the DATABASE_URI variable by adding the Username and Password.
 
 Bring up the site with:
 `docker-compose up`
 
 ## Database
 
+To create a migrations folder (shouldn't ever have to run this):
+`flask db init`
+
+If you need to make changes to the database, update or add db classes, then run:
+`flask db migrate -m "Some message."`
+`flask db upgrade`
+
 ## Tasks
 
-- database (1 hr)
 - scraping (3 hr)
 - session (1 hr)
 - celery job (1 hr)
@@ -30,7 +40,7 @@ Bring up the site with:
 - build react + uwsgi (3 hr)
 - host on heroku (1 hr)
 
--- MVP (15.5 hr)
+-- MVP (14.5 hr)
 
 - backend tests
 - automated testing with git connect
