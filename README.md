@@ -21,27 +21,37 @@ Bring up the site with:
 
 ## Database
 
-To create a migrations folder (shouldn't ever have to run this):
+To manage the database, run the docker-compose and enter the flask container:
+`docker ps`
+`docker exec -it CONTAINER_ID sh`
+
+If you are doing a clean install, first run:
 `flask db init`
 
-If you need to make changes to the database, update or add db classes, then run:
+If you need to make changes to the database (add or update db classes) then run:
 `flask db migrate -m "Some message."`
 `flask db upgrade`
 
+To wipe the database, first take down the postgres container, then run:
+`docker ps -a` - get the postgres container ID
+`docker rm POSTGRES_CONTAINER_ID`
+`docker volume ls` - get the pgdata volume name
+`docker volume rm PGDATA_VOLUME_NAME`
+Then clear the contents of the migrations folder.
+
 ## Tasks
 
-- session (1 hr)
-- flask - api routes (2 hr)
+- flask - api routes (0.5 hr)
+
 - scraping (3 hr)
 - celery job (1 hr)
-- database - seed - 10 battles (.5 hr)
 - react - api (1 hr)
 - redux (2 hr)
 - local storage (1 hr)
 - build react + uwsgi (2 hr)
 - host on heroku (1 hr)
 
--- MVP (14.5 hr)
+-- MVP (12 hr)
 
 - backend tests
 - automated testing with git connect

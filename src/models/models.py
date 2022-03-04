@@ -1,10 +1,11 @@
-from src.models import db
 import enum
+from src.models import db
+from src.util import json_serializable
 
 
 class Result(enum.Enum):
-    a = "A"
-    b = "B"
+    A = "A"
+    B = "B"
 
 
 class Battle(db.Model):
@@ -15,14 +16,14 @@ class Battle(db.Model):
     date = db.Column(db.String(100), nullable=False,)
     location = db.Column(db.String(100), nullable=False,)
     answer = db.Column(db.Enum(Result), nullable=False,)
-    belligerentA = db.Column(db.String(100), nullable=False,)
-    belligerentB = db.Column(db.String(100), nullable=False,)
-    leaderAName = db.Column(db.String(100), nullable=False,)
-    leaderBName = db.Column(db.String(100), nullable=False,)
-    leaderAImageLink = db.Column(db.String(100), nullable=False,)
-    leaderBImageLink = db.Column(db.String(100), nullable=False,)
+    belligerentA = db.Column(db.String(120), nullable=False,)
+    belligerentB = db.Column(db.String(120), nullable=False,)
+    leaderAName = db.Column(db.String(120), nullable=False,)
+    leaderBName = db.Column(db.String(120), nullable=False,)
+    leaderAImageLink = db.Column(db.String(300), nullable=False,)
+    leaderBImageLink = db.Column(db.String(300), nullable=False,)
     wikipediaBlurb = db.Column(db.String(450))
-    wikipediaLink = db.Column(db.String(100))
+    wikipediaLink = db.Column(db.String(200))
 
     created_time = db.Column(db.TIMESTAMP(timezone=True), nullable=False)
     last_read_time = db.Column(db.TIMESTAMP(timezone=True), nullable=False)

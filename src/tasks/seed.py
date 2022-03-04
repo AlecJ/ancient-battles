@@ -14,14 +14,14 @@ def seed_battles(csv_file_path):
     '''
     logger = _getLogger('seed_battles')
 
-    with session_scope() as session:
-        logger.debug('Opening {} as csv'.format(csv_file_path))
-        with open(csv_file_path) as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                # insert each row into the database
-                try:
-                    print(row.get('answer'))
+    
+    logger.debug('Opening {} as csv'.format(csv_file_path))
+    with open(csv_file_path) as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            # insert each row into the database
+            try:
+                with session_scope() as session:
                     result = create_battle(
                         session,
                         row.get('battleName'),
@@ -40,7 +40,6 @@ def seed_battles(csv_file_path):
                     if result:
                         logger.debug('Row added successfully.')
                     else:
-                        logger.debug('Error adding row: \n{}'.format(row))
-                    break
-                except Exception as e:
-                    logger.error(e)
+                        logger.error('\nError adding row: \n{}'.format(row))
+            except Exception as e:
+                logger.error(e)

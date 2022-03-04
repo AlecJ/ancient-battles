@@ -1,8 +1,8 @@
-"""Initial migration.
+"""Init
 
-Revision ID: 55716888cf2f
+Revision ID: 5d7cd6a7d560
 Revises: 
-Create Date: 2022-03-03 18:18:08.128133
+Create Date: 2022-03-04 21:13:33.939147
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '55716888cf2f'
+revision = '5d7cd6a7d560'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -23,15 +23,15 @@ def upgrade():
     sa.Column('battleName', sa.String(length=100), nullable=False),
     sa.Column('date', sa.String(length=100), nullable=False),
     sa.Column('location', sa.String(length=100), nullable=False),
-    sa.Column('answer', sa.Enum('a', 'b', name='result'), nullable=False),
-    sa.Column('belligerentA', sa.String(length=100), nullable=False),
-    sa.Column('belligerentB', sa.String(length=100), nullable=False),
-    sa.Column('leaderAName', sa.String(length=100), nullable=False),
-    sa.Column('leaderBName', sa.String(length=100), nullable=False),
-    sa.Column('leaderAImageLink', sa.String(length=100), nullable=False),
-    sa.Column('leaderBImageLink', sa.String(length=100), nullable=False),
+    sa.Column('answer', sa.Enum('A', 'B', name='result'), nullable=False),
+    sa.Column('belligerentA', sa.String(length=120), nullable=False),
+    sa.Column('belligerentB', sa.String(length=120), nullable=False),
+    sa.Column('leaderAName', sa.String(length=120), nullable=False),
+    sa.Column('leaderBName', sa.String(length=120), nullable=False),
+    sa.Column('leaderAImageLink', sa.String(length=300), nullable=False),
+    sa.Column('leaderBImageLink', sa.String(length=300), nullable=False),
     sa.Column('wikipediaBlurb', sa.String(length=450), nullable=True),
-    sa.Column('wikipediaLink', sa.String(length=100), nullable=True),
+    sa.Column('wikipediaLink', sa.String(length=200), nullable=True),
     sa.Column('created_time', sa.TIMESTAMP(timezone=True), nullable=False),
     sa.Column('last_read_time', sa.TIMESTAMP(timezone=True), nullable=False),
     sa.PrimaryKeyConstraint('id'),
