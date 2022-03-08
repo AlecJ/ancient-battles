@@ -14,25 +14,32 @@ Config and Environment
 class Config(object):
     env = Env()
     env.read_env()  # load env variables right away
-    _DB_URL = None
+    _DB_URI = None
     _engine = None
+    _SEED_PATH = None
     
     @property
     def ENVIRONMENT(self):
         return self.env.str("FLASK_ENV", default="production")
 
     @property
-    def DB_URL(self):
-        if self._DB_URL is None:
-            self._DB_URL = self.env.str("DATABASE_URI")
-        return self._DB_URL
+    def DB_URI(self):
+        if self._DB_URI is None:
+            self._DB_URI = self.env.str("DATABASE_URI")
+        return self._DB_URI
+
+    @property
+    def SEED_PATH(self):
+        if self._SEED_PATH is None:
+            self._SEED_PATH = self.env.str("SEED_PATH")
+        return self._SEED_PATH
 
     @property
     def engine(self):
         if self._engine is None:
             url = os.environ.get('DATABASE_URI')
             if not url:
-                url = self.DB_URL
+                url = self.DB_URI
 
             # Queue pool is already there by default, and we can just set the
             # pool parameters without creating or referencing a pool object

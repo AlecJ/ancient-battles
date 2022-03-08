@@ -1,20 +1,21 @@
 import csv
 from src.api.service import create_battle
-from src.util import loggingFactory, session_scope
+from src.util import loggingFactory, session_scope, config
 
 _getLogger = loggingFactory('seed')
 
 
-def seed_battles(csv_file_path):
+def seed_battles(csv_file_path=config.SEED_PATH):
     '''
     Imports a CSV file of battles into the database.
+
+    Default csv_file_path comes from .env, SEED_PATH variable.
 
     :param csv_file_path: string, path to csv file
     :return: None
     '''
     logger = _getLogger('seed_battles')
 
-    
     logger.debug('Opening {} as csv'.format(csv_file_path))
     with open(csv_file_path) as csvfile:
         reader = csv.DictReader(csvfile)

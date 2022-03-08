@@ -25,7 +25,7 @@ def create_app():
 
     # Register db and migrate extensions
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = config.DB_URL
+    app.config['SQLALCHEMY_DATABASE_URI'] = config.DB_URI
     db.init_app(app)
     migrate.init_app(app, db)
 
