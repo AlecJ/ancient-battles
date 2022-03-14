@@ -41,9 +41,9 @@ Then clear the contents of the migrations folder.
 
 ## Tasks
 
-- flask - api routes (0.5 hr)
-
-- scraping (3 hr)
+- scraping (1 hr)
+  - scrapy items (.5 hr)
+  - post_process - add to db (.5 hr)
 - celery job (1 hr)
 - react - api (1 hr)
 - redux (2 hr)
@@ -51,8 +51,10 @@ Then clear the contents of the migrations folder.
 - build react + uwsgi (2 hr)
 - host on heroku (1 hr)
 
--- MVP (12 hr)
+-- MVP (9 hr)
 
+- add reporting bad matches
+- logger output to file
 - backend tests
 - automated testing with git connect
 - configure web crawler
