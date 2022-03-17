@@ -15,6 +15,10 @@ psycopg2-binary==2.9.3
 # Migrations
 Flask-Migrate==2.5.3
 
+# Testing
+pytest==7.1.1
+coverage==6.3.2
+
 # Deployment
 gunicorn==20.0.4 
 supervisor==4.2.1
