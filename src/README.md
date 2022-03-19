@@ -8,6 +8,8 @@ Overview of `src` directories:
 
 `tasks` - Celery tasks
 
+`test` - Unit tests
+
 `ui` - React UI
 
 `util` - Configuration and utility functions, logging, db_engine, session management

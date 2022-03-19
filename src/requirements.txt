@@ -17,6 +17,7 @@ Flask-Migrate==2.5.3
 
 # Testing
 pytest==7.1.1
+pytest-mock==3.7.0
 coverage==6.3.2
 
 # Deployment

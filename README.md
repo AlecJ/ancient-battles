@@ -41,17 +41,22 @@ Then clear the contents of the migrations folder.
 
 ## Tasks
 
-- testing (1 hr)
-- scraping (.5 hr)
-- celery job (1 hr)
-- react - api (1 hr)
-- redux (2 hr)
-- local storage (1 hr)
-- build react + uwsgi (2 hr)
-- host on heroku (1 hr)
+- needs time to complete
+  Battles should be broken up into sections
+  Players select which "War" or Period they want to get battles from, rather than just totally random battles
+
+* testing (1 hr)
+* scraping (.5 hr)
+* celery job (1 hr)
+* react - api (1 hr)
+* redux (2 hr)
+* local storage (1 hr)
+* build react + uwsgi (2 hr)
+* host on heroku (1 hr)
 
 -- MVP (9.5 hr)
 
+- CICD
 - add reporting bad matches
 - logger output to file
 - backend tests
