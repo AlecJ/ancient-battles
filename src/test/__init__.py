@@ -18,6 +18,15 @@ def test_create_campaign(self, mocker):
     campaign = create_campaign(mock_session)
     assert campaign
 
+You can mock DB queries with...
+def test(self, mocker):
+    mock_session = mocker.MagicMock()
+    mock_object = mocker.MagicMock()
+    mock_object.id = 1
+    mock_session.query().order_by().all.return_value = [mock_object, mock_object, mock_object]
+    campaigns = get_campaigns(mock_session)
+    assert len(campaigns) == 3
+
 You can raise an error with...
 def test_create_campaign_error(self, mocker):
     mock_error = mocker.MagicMock(side_effect=exc.SQLAlchemyError)

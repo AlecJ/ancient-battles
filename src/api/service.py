@@ -72,6 +72,7 @@ def get_shuffled_list_of_battles(session):
                           .order_by(func.random()) \
                           .all() #.limit(10)
         # convert tuples to simple list
+        print(battle_list)
         battle_list = [x.id for x in battle_list]
         logger.debug('List to give to user: \n{}'.format(battle_list))
         return battle_list
