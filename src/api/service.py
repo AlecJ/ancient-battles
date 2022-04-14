@@ -70,7 +70,8 @@ def get_shuffled_list_of_battles(session):
     try:
         battle_list = session.query(Battle.id) \
                           .order_by(func.random()) \
-                          .all() #.limit(10)
+                          .limit(10) \
+                          .all()
         # convert tuples to simple list
         print(battle_list)
         battle_list = [x.id for x in battle_list]

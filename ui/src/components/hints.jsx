@@ -3,31 +3,19 @@ import React, { Component } from 'react';
 import styles from './styles/hints.module.scss';
 
 class Hints extends Component {
-    state = {
-        showDate: false,
-        showLocation: false,
-        showBelligerents: false,
-        date: 'September 52 BC',
-        location: 'Alise-Sainte-Reine, France',
-        belligerentA: 'Roman Republic',
-        belligerentB: 'Gaulic Confederation',
-    }
 
-    revealHint(hint) {
-        if (hint === 'date') {
-            this.setState({showDate: true});
-        } else if (hint === 'location') {
-            this.setState({showLocation: true});
-        } else if (hint === 'belligerents') {
-            this.setState({showBelligerents: true});
-        } else {
-            // error handling
+    constructor(props) {
+        super(props);
+
+        this.state = { 
         }
     }
 
+
+
     render() { 
-        const { showDate, showLocation, showBelligerents,
-                date, location, belligerentA, belligerentB } = this.state
+        const { currentBattle, revealHint, showDate, showLocation, showBelligerents } = this.props
+        const { date, location, belligerentA, belligerentB } = currentBattle
 
         return (
             <div className={styles.hintsContainer}>
@@ -35,7 +23,7 @@ class Hints extends Component {
                     <div id="Date">
                         <h2>Date</h2>
                         <div className={styles.reveal}
-                             onClick={() => {this.revealHint('date')}}>
+                             onClick={() => {revealHint('date')}}>
                             {showDate ? (
                                 <p className={styles.fadeText}>{date}</p>
                             ) : (
@@ -46,7 +34,7 @@ class Hints extends Component {
                     <div id="Location">
                         <h2>Location</h2>
                         <div className={styles.reveal}
-                             onClick={() => {this.revealHint('location')}}>
+                             onClick={() => {revealHint('location')}}>
                             {showLocation ? (
                                 <p className={styles.fadeText}>{location}</p>
                             ) : (
@@ -57,7 +45,7 @@ class Hints extends Component {
                     <div id="Belligerents">
                         <h2>Belligerents</h2>
                         <div className={styles.reveal}
-                             onClick={() => {this.revealHint('belligerents')}}>
+                             onClick={() => {revealHint('belligerents')}}>
                             {showBelligerents ? (
                                 <p className={styles.fadeText}>{belligerentA} | {belligerentB}</p>
                             ) : (

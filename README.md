@@ -6,9 +6,9 @@ React / Redux / NodeJS / Scrapy / Celery
 
 Using Wikipedia battle entries, this app pulls a collection of battles that have all of the required details to be featured. It then shows the user just the pictures and names of the leaders of each side in the conflict. The user can request more details, such as year, and location of the battle, but must otherwise choose one leader that they think won the particular battle. They are told whether they were correct or not, and then can try again with a new battle.
 
-## Setup
+## Setup for Development
 
-### Run with Docker
+### Run Backend with Docker
 
 Copy the `.env.SAMPLE` file and rename it `.env`.
 
@@ -19,7 +19,12 @@ In the `.env` file, update the DATABASE_URI variable by adding the Username and 
 Bring up the site with:
 `docker-compose up`
 
-## Database
+### Frontend
+
+Start up the development server
+`cd ui && npm start`
+
+### Database
 
 To manage the database, run the docker-compose and enter the flask container:
 `docker ps`
@@ -30,6 +35,8 @@ If you are doing a clean install, first run:
 
 If you need to make changes to the database (add or update db classes) then run:
 `flask db migrate -m "Some message."`
+
+Finally, run:
 `flask db upgrade`
 
 To wipe the database, first take down the postgres container, then run:
@@ -39,7 +46,17 @@ To wipe the database, first take down the postgres container, then run:
 `docker volume rm PGDATA_VOLUME_NAME`
 Then clear the contents of the migrations folder.
 
+## Deployment Steps
+
+ui process.env.REACT_APP_PROD_API_URL
+
 ## Tasks
+
+- data clean up - 0.5 hr
+- more battles - 1 hr
+- deploy - 0.5 hr
+
+-- MVP (2 hr)
 
 - needs time to complete
   Battles should be broken up into sections
@@ -47,12 +64,12 @@ Then clear the contents of the migrations folder.
 
 * testing (1 hr)
 * scraping (.5 hr)
-* celery job (1 hr)
-* react - api (1 hr)
+* celery job (0.5 hr)
+* react - api (0.5 hr)
 * redux (2 hr)
 * local storage (1 hr)
 * build react + uwsgi (2 hr)
-* host on heroku (1 hr)
+* host on heroku (0.5 hr)
 
 -- MVP (9.5 hr)
 

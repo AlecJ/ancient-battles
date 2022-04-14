@@ -1,5 +1,5 @@
 from multiprocessing.sharedctypes import Value
-from flask import Blueprint
+from flask import Blueprint, request, jsonify
 from flask_restful import Api, Resource
 from src.util import session_scope, loggingFactory
 from src.api.service import get_shuffled_list_of_battles, get_battle_by_id
@@ -29,12 +29,19 @@ api = Api(api_blueprint)
 
 
 class BattleAPI(Resource):
-    def get(self, id=None):
+    def get(self):
         logger = _getLogger('BattleAPI.get')
+
+        # seed_battles()
 
         with session_scope() as session:
             result = {}
-            if id is None:
+
+            battle_id = request.args.get('battle_id')
+
+            print('request')
+
+            if battle_id is None:
                 # fetch a list of battles
                 list_of_battle_ids = get_shuffled_list_of_battles(session)
                 # now fetch the first battle from the list
@@ -47,10 +54,10 @@ class BattleAPI(Resource):
                 result['list_of_battle_IDs'] = list_of_battle_ids
 
             # fetch battle by ID
-            battle = get_battle_by_id(session, id or list_of_battle_ids[0])
+            battle = get_battle_by_id(session, battle_id or list_of_battle_ids[0])
             result['battle'] = battle.row_as_dict()
 
             return result
 
 
-api.add_resource(BattleAPI, '/', '/battle/<int:id>')
+api.add_resource(BattleAPI, '/', '/battle')

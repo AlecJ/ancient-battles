@@ -4,17 +4,17 @@ from re import A
 import scrapy
 from scrapy.http.request import Request
 from sqlalchemy import false
-from scraper.items import MatchItem
+from scraper.items import BattleItem
 
 
 
 class WikiScraper(scrapy.Spider):
     name = 'wikispider'
     allowed_domains = []
-    start_urls = [#'https://en.wikipedia.org/wiki/List_of_battles_before_301',
-    #               'https://en.wikipedia.org/wiki/List_of_battles_301%E2%80%931300',
-                #   'https://en.wikipedia.org/wiki/List_of_battles_1301%E2%80%931600',
-                #   'https://en.wikipedia.org/wiki/List_of_battles_1601%E2%80%931800',
+    start_urls = ['https://en.wikipedia.org/wiki/List_of_battles_before_301',
+                  'https://en.wikipedia.org/wiki/List_of_battles_301%E2%80%931300',
+                  'https://en.wikipedia.org/wiki/List_of_battles_1301%E2%80%931600',
+                  'https://en.wikipedia.org/wiki/List_of_battles_1601%E2%80%931800',
                   'https://en.wikipedia.org/wiki/List_of_battles_1801%E2%80%931900',
                 #   'https://en.wikipedia.org/wiki/List_of_battles_1901%E2%80%932000',
                 #   'https://en.wikipedia.org/wiki/List_of_battles_since_2001',
@@ -51,6 +51,10 @@ class WikiScraper(scrapy.Spider):
             for link in links:
                 print(link.extract())
                 request = scrapy.Request('https://en.wikipedia.org' + link.extract(), callback=self.parse_battle_page)
+
+                # Testing individual battles
+                battle = 'https://en.wikipedia.org/wiki/Battle_of_Almaraz'
+                request = scrapy.Request(battle, callback=self.parse_battle_page)
                 yield request
                 break
 
@@ -81,19 +85,21 @@ class WikiScraper(scrapy.Spider):
             print('Response wasa not 200.')
         
         # This represents the battle row that will be stored in the database
-        battle = {}
+        battle = BattleItem()
         battle['wikipediaLink'] = response.url
 
+
         # Parse battle name
-        name = response.xpath("//*[@id='firstHeading']/text()").extract()
+        battleName = response.xpath("//*[@id='firstHeading']/text()").extract()
         # See if the xpath found anything
-        if len(name) > 0:
-            name = self.parse_battle_name(name[0])
-            battle['name'] = name
-            print(name)
+        if len(battleName) > 0:
+            battleName = self.parse_battle_name(battleName[0])
+            battle['battleName'] = battleName
+            print(battleName)
         else:
             print('Name not found.')
-        
+
+
         # Parse date
         date = response.xpath("//table[contains(@class, 'infobox')]/tbody/tr/td/table/tbody/tr/th[text()='Date']/following-sibling::td/text()").extract()
         if len(date) > 0: 
@@ -102,9 +108,11 @@ class WikiScraper(scrapy.Spider):
             print(date)
         else:
             print('Date not found.')
-        
+
+
         # Parse location
-        location = response.xpath("//div[contains(@class, 'location')]/*/text()").extract()
+        # not(self::span)]   [not(self::a)]
+        location = response.xpath("//div[contains(@class, 'location')]/*[not(self::style)]/text()").extract()
         if len(location) > 0:
             location = self.parse_location(location)  # convert list into string
             location = self.remove_unusual_characters(location)
@@ -113,68 +121,85 @@ class WikiScraper(scrapy.Spider):
         else:
             print('Location not found.')
 
-        # Parse belligerents
-        belligerent_a = response.xpath("//th[text()='Belligerents']/../following-sibling::tr[1]/td[1]/text()").extract()
-        # See if the xpath found anything
-        if len(belligerent_a) > 0:
-            belligerent_a = self.remove_unusual_characters(belligerent_a[0])
-        # Check if we actually got the correct string (or any)
-        if len(belligerent_a) == 0:
-            # try selecting a link within the td
-            belligerent_a = response.xpath("//th[text()='Belligerents']/../following-sibling::tr[1]/td[1]/a/text()").extract()
-            if len(belligerent_a) > 0:
-                belligerent_a = self.remove_unusual_characters(belligerent_a[0])
-            else:
-                print('First belligerent not found.')
-        battle['belligerent_a'] = belligerent_a
-        print(belligerent_a)
 
-        belligerent_b = response.xpath("//th[text()='Belligerents']/../following-sibling::tr[1]/td[2]/text()").extract()
-        if len(belligerent_b) > 0:
-            belligerent_b = self.remove_unusual_characters(belligerent_b[0])
-            # Check if we actually got the correct string (or any)
-        if len(belligerent_b) == 0:
-            # try selecting a link within the td
-            belligerent_b = response.xpath("//th[text()='Belligerents']/../following-sibling::tr[1]/td[2]/a/text()").extract()
+        # Parse belligerents
+        belligerent_selectors = ["/text()", "/a/text()", "/span/a/text()", "/p/a/text()", "/div/div/div/span/a/text()"]
+        # //th[text()='Belligerents']/../following-sibling::tr[1]/td[1]/div/div/div/span/a
+        # //th[text()='Belligerents']/../following-sibling::tr[1]/td[2]/a
+        # //th[text()='Belligerents']/../following-sibling::tr[1]/td[2]/span/a
+        # //th[text()='Belligerents']/../following-sibling::tr[1]/td[1]/p/a
+
+        # Belligerent A
+        for selector in belligerent_selectors:
+            belligerent_a = response.xpath("//th[text()='Belligerents']/../following-sibling::tr[1]/td[1]" + selector).extract()
+            # See if the xpath found anything
+            if len(belligerent_a) > 0:
+                belligerent_a = belligerent_a[0]  # convert list to string
+                belligerent_a = self.remove_unusual_characters(belligerent_a)
+            # Check if we actually got a string
+            if len(belligerent_a) > 0:
+                battle['belligerentA'] = belligerent_a
+                print(belligerent_a)
+                break
+
+        if not battle.get('belligerentA', False):
+            print('First belligerent not found.')
+
+        # Belligerent B
+        for selector in belligerent_selectors:
+            belligerent_b = response.xpath("//th[text()='Belligerents']/../following-sibling::tr[1]/td[2]" + selector).extract()
+            # See if the xpath found anything
             if len(belligerent_b) > 0:
-                belligerent_b = self.remove_unusual_characters(belligerent_b[0])
-            else:
-                print('Second belligerent not found.')
-        battle['belligerent_b'] = belligerent_b
-        print(belligerent_b)
-        
+                belligerent_b = belligerent_b[0]  # convert list to string
+                belligerent_b = self.remove_unusual_characters(belligerent_b)
+            # Check if we actually got a string
+            if len(belligerent_b) > 0:
+                battle['belligerentB'] = belligerent_b
+                print(belligerent_b)
+                break
+
+        if not battle.get('belligerentB', False):
+            print('Second belligerent not found.')
+
+
         # Parse battle result
         battle_result = response.xpath("//table[contains(@class, 'infobox')]/tbody/tr/td/table/tbody/tr/th[text()='Result']/following-sibling::td/text()").extract()
-        if len(battle_result) > 0: 
-            battle_result = self.remove_unusual_characters(battle_result[0])
-            battle_result = self.parse_winner(belligerent_a, belligerent_b, battle_result)
-            battle['battle_result'] = battle_result
+        if len(battle_result) > 0:
             print(battle_result)
+            battle_result = self.remove_unusual_characters(battle_result[0])
+            print(battle_result)
+            battle_result = self.parse_winner(belligerent_a, belligerent_b, battle_result)
+            battle['answer'] = battle_result
+            print("result: {}".format(battle_result))
         else:
             print('Battle result not found.')
-        
+
+
         # Parse leaders
-        leader_a = response.xpath("//th[text()='Commanders and leaders']/../following-sibling::tr[1]/td[1]/a[1]/text()").extract()
-        leader_a_link = response.xpath("//th[text()='Commanders and leaders']/../following-sibling::tr[1]/td[1]/a[1]/@href").extract()
+        #  //th[text()='Commanders and leaders']/../following-sibling::tr[1]/td[1]/a[2]
+        leader_a = response.xpath("//th[text()='Commanders and leaders']/../following-sibling::tr[1]/td[1]/a[not(contains(@class, 'image'))]/text()").extract()
+        leader_a_link = response.xpath("//th[text()='Commanders and leaders']/../following-sibling::tr[1]/td[1]/a[not(contains(@class, 'image'))]/@href").extract()
         if len(leader_a) > 0:
-            battle['leader_a'] = leader_a[0]
-            battle['leader_a_link'] = leader_a_link[0]
+            battle['leaderAName'] = leader_a[0]
             print(leader_a[0])
             print(leader_a_link[0])
         else:
             print('Leader A not found.')
 
-        leader_b = response.xpath("//th[text()='Commanders and leaders']/../following-sibling::tr[1]/td[2]/a[1]/text()").extract()
-        leader_b_link = response.xpath("//th[text()='Commanders and leaders']/../following-sibling::tr[1]/td[2]/a[1]/@href").extract()
+        leader_b = response.xpath("//th[text()='Commanders and leaders']/../following-sibling::tr[1]/td[2]/a[not(contains(@class, 'image'))]/text()").extract()
+        leader_b_link = response.xpath("//th[text()='Commanders and leaders']/../following-sibling::tr[1]/td[2]/a[not(contains(@class, 'image'))]/@href").extract()
         if len(leader_b) > 0:
-            battle['leader_b'] = leader_b[0]
-            battle['leader_b_link'] = leader_b_link[0]
+            battle['leaderBName'] = leader_b[0]
             print(leader_b[0])
             print(leader_b_link[0])
         else:
             print('Leader B not found.')
-                
-        wikipediaBlurb = response.xpath("//div[contains(@class, 'navbox') or contains(@class, 'infobox') or contains(@class, 'stack-container')]/following-sibling::p[1]//text()").extract()
+
+
+        # Parse wikipedia summary
+        # *[not(self::style)]/text()
+        # //*[not(self::script)]/text()
+        wikipediaBlurb = response.xpath("//div[contains(@class, 'navbox') or contains(@class, 'infobox') or contains(@class, 'stack-container')]/following-sibling::p[1]/descendant::text()[not(parent::style) and not(parent::sup)]").extract()
         if len(wikipediaBlurb) > 0:
             wikipediaBlurb = self.parse_summary(wikipediaBlurb)  # condense list of strings to single string
             battle['wikipediaBlurb'] = wikipediaBlurb[:350] if len(wikipediaBlurb) <= 350 else wikipediaBlurb[:350] + '...'  # if the blurb is trimmed, add elipsis
@@ -183,14 +208,16 @@ class WikiScraper(scrapy.Spider):
             print('No summary found.')
 
         # If we are missing a leader image, scrap this battle and move on
-        if not battle.get('leader_a_link', False) or not battle.get('leader_a_link', False):
+        if not leader_a_link and len(leader_a_link) == 0 or not leader_b_link and len(leader_b_link) == 0:
             print('Missing a leader wiki link.')
-            return
+            yield None
 
         # Now to scrape the leader wikipedia pages to get the source for their images
-        yield scrapy.Request('https://en.wikipedia.org' + battle['leader_a_link'],
+        yield scrapy.Request('https://en.wikipedia.org' + leader_a_link[0],
                              callback=self.get_leader_image_url,
-                             meta={'battle': battle, 'is_second_leader': False})
+                             meta={'battle': battle,
+                                   'leader_b_link': leader_b_link[0],
+                                   'is_second_leader': False})
 
 
     def get_leader_image_url(self, response):
@@ -209,14 +236,17 @@ class WikiScraper(scrapy.Spider):
         
         # If this is the first leader, then store leader_a data and recurse
         if not response.meta.get('is_second_leader', True):
-            battle['leader_a_photo_link'] = leader_image_url
-            yield scrapy.Request('https://en.wikipedia.org' + battle['leader_b_link'],
+            battle['leaderAImageLink'] = leader_image_url
+            yield scrapy.Request('https://en.wikipedia.org' + response.meta.get('leader_b_link'),
                                  callback=self.get_leader_image_url,
                                  meta={'battle': battle, 'is_second_leader': True})
+
+        # Otherwise store second leader data and end
         else:
-            battle['leader_b_photo_link'] = leader_image_url
-            return
-            # Otherwise store second leader data and end
+            battle['leaderBImageLink'] = leader_image_url
+            yield battle
+
+
 
     '''
     Helper Methods
@@ -282,11 +312,24 @@ class WikiScraper(scrapy.Spider):
         This decides the winner by matching as many characters to each one as possible. That
         means, creating a character map for each string, and seeing which ones are closest.
 
+        Finally, some names are quite different...
+        United States -> American Victory
+
+        Dictionary will convert some specific terms
+
         :param:
         :param:
         :param:
         :return:
         '''
+
+        '''
+        Helper methods
+        '''
+        convert_specific_victory_strings = {
+            'american victory': 'United States'
+        }
+
         def add_to_character_map(map, char):
             '''
             Either create a new key in a dict with count = 1, or increment
@@ -310,6 +353,16 @@ class WikiScraper(scrapy.Spider):
             # Now return a final count of all values in map_a
             return sum(map_a.values())
 
+        '''
+        End helper methods
+        '''
+
+        # First check if the victory string matches any specific terms
+        # and convert it if it does
+        if result_string.lower() in convert_specific_victory_strings.keys():
+            result_string = convert_specific_victory_strings.get(result_string.lower())
+
+        print(result_string)
         # create character maps
         result_string_character_map = {}
         for char in result_string:
@@ -373,8 +426,25 @@ class WikiScraper(scrapy.Spider):
                     after_open_bracket = string[string.find(']') + 1:]
                     # Recurse on the remainder of the string
                     return before_open_bracket + remove_brackets(after_open_bracket)
+        
+        def inch_forward_commas(string):
+            '''
+            '''
+            result = ''
+
+            for c in string:
+                if c == ',':
+                    # remove every whitespace preceeding this
+                    result = result.rstrip()
+                result += c
+            
+            return result
+
+
+
 
         result = ''.join(list_of_strings)  # convert list of strings to a single string
         result = self.remove_unusual_characters(result)  # remove unicode characters
         result = remove_brackets(result)  # remove wikipedia references (ex. "[1]")
+        result = inch_forward_commas(result)  # if any commas trail whitespace, remove the whitespace
         return result
