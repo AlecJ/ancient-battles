@@ -44,19 +44,21 @@ class WikiScraper(scrapy.Spider):
                 links = response.xpath("//div[contains(@class, 'mw-parser-output')]/ul/li/ul/li/a[1]/@href")
             
 
-            # now take the first 10 rows and shuffle
+            # now shuffle and take the first 10 rows
             random.shuffle(links)
-            links = links[:10]
+            links = links[:50]
 
             for link in links:
+                print('\n\n\nbeginning new link \n\n\n')
                 print(link.extract())
+                print('\n\n\n')
                 request = scrapy.Request('https://en.wikipedia.org' + link.extract(), callback=self.parse_battle_page)
 
                 # Testing individual battles
-                battle = 'https://en.wikipedia.org/wiki/Battle_of_Almaraz'
-                request = scrapy.Request(battle, callback=self.parse_battle_page)
+                # battle = 'https://en.wikipedia.org/wiki/Battle_of_Diamond_Hill'
+                # request = scrapy.Request(battle, callback=self.parse_battle_page)
                 yield request
-                break
+                # break
 
 
     def parse_battle_page(self, response):
@@ -82,7 +84,7 @@ class WikiScraper(scrapy.Spider):
         :return:
         '''
         if response.status != 200:
-            print('Response wasa not 200.')
+            print('Response was not 200.')
         
         # This represents the battle row that will be stored in the database
         battle = BattleItem()
@@ -95,9 +97,10 @@ class WikiScraper(scrapy.Spider):
         if len(battleName) > 0:
             battleName = self.parse_battle_name(battleName[0])
             battle['battleName'] = battleName
-            print(battleName)
-        else:
+
+        if len(battle.get('battleName')) == 0:
             print('Name not found.')
+            yield None
 
 
         # Parse date
@@ -106,8 +109,10 @@ class WikiScraper(scrapy.Spider):
             date = self.remove_unusual_characters(date[0])
             battle['date'] = date
             print(date)
-        else:
+        
+        if len(battle.get('date')) == 0:
             print('Date not found.')
+            yield None
 
 
         # Parse location
@@ -117,9 +122,10 @@ class WikiScraper(scrapy.Spider):
             location = self.parse_location(location)  # convert list into string
             location = self.remove_unusual_characters(location)
             battle['location'] = location
-            print(location)
-        else:
+
+        if len(battle.get('location')) == 0:
             print('Location not found.')
+            yield None
 
 
         # Parse belligerents
@@ -139,11 +145,11 @@ class WikiScraper(scrapy.Spider):
             # Check if we actually got a string
             if len(belligerent_a) > 0:
                 battle['belligerentA'] = belligerent_a
-                print(belligerent_a)
                 break
 
         if not battle.get('belligerentA', False):
             print('First belligerent not found.')
+            yield None
 
         # Belligerent B
         for selector in belligerent_selectors:
@@ -155,24 +161,22 @@ class WikiScraper(scrapy.Spider):
             # Check if we actually got a string
             if len(belligerent_b) > 0:
                 battle['belligerentB'] = belligerent_b
-                print(belligerent_b)
                 break
 
         if not battle.get('belligerentB', False):
             print('Second belligerent not found.')
-
+            yield None
 
         # Parse battle result
         battle_result = response.xpath("//table[contains(@class, 'infobox')]/tbody/tr/td/table/tbody/tr/th[text()='Result']/following-sibling::td/text()").extract()
         if len(battle_result) > 0:
-            print(battle_result)
             battle_result = self.remove_unusual_characters(battle_result[0])
-            print(battle_result)
             battle_result = self.parse_winner(belligerent_a, belligerent_b, battle_result)
             battle['answer'] = battle_result
             print("result: {}".format(battle_result))
         else:
             print('Battle result not found.')
+            yield None
 
 
         # Parse leaders
@@ -181,19 +185,17 @@ class WikiScraper(scrapy.Spider):
         leader_a_link = response.xpath("//th[text()='Commanders and leaders']/../following-sibling::tr[1]/td[1]/a[not(contains(@class, 'image'))]/@href").extract()
         if len(leader_a) > 0:
             battle['leaderAName'] = leader_a[0]
-            print(leader_a[0])
-            print(leader_a_link[0])
         else:
             print('Leader A not found.')
+            yield None
 
         leader_b = response.xpath("//th[text()='Commanders and leaders']/../following-sibling::tr[1]/td[2]/a[not(contains(@class, 'image'))]/text()").extract()
         leader_b_link = response.xpath("//th[text()='Commanders and leaders']/../following-sibling::tr[1]/td[2]/a[not(contains(@class, 'image'))]/@href").extract()
         if len(leader_b) > 0:
             battle['leaderBName'] = leader_b[0]
-            print(leader_b[0])
-            print(leader_b_link[0])
         else:
             print('Leader B not found.')
+            yield None
 
 
         # Parse wikipedia summary
@@ -203,9 +205,10 @@ class WikiScraper(scrapy.Spider):
         if len(wikipediaBlurb) > 0:
             wikipediaBlurb = self.parse_summary(wikipediaBlurb)  # condense list of strings to single string
             battle['wikipediaBlurb'] = wikipediaBlurb[:350] if len(wikipediaBlurb) <= 350 else wikipediaBlurb[:350] + '...'  # if the blurb is trimmed, add elipsis
-            print(wikipediaBlurb[:350])
-        else:
+        
+        if len(battle.get('wikipediaBlurb')) == 0:
             print('No summary found.')
+            yield None
 
         # If we are missing a leader image, scrap this battle and move on
         if not leader_a_link and len(leader_a_link) == 0 or not leader_b_link and len(leader_b_link) == 0:
@@ -228,11 +231,8 @@ class WikiScraper(scrapy.Spider):
                          and is_second_leader (flag for indicating if its the first or second leader)
         :return: None
         '''
-        print('get_leader_image_url')
-        print(response.url)
         battle = response.meta.get('battle')
         leader_image_url = response.xpath("//td[contains(@class, 'infobox-image')]/a/img/@src").extract()
-        print(leader_image_url)
         
         # If this is the first leader, then store leader_a data and recurse
         if not response.meta.get('is_second_leader', True):
@@ -244,7 +244,13 @@ class WikiScraper(scrapy.Spider):
         # Otherwise store second leader data and end
         else:
             battle['leaderBImageLink'] = leader_image_url
-            yield battle
+
+            #final checks
+            if battle.get('leaderAImageLink') and \
+               battle.get('leaderBImageLink'):
+                yield battle
+            else:
+                yield None
 
 
 

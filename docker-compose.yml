@@ -14,10 +14,10 @@ services:
     ports:
       - "5432:5432"
 
-  flask:
+  web:
     build:
       context: .
-      dockerfile: ./docker/Dockerfile.dev
+      dockerfile: ./deploy/docker/Dockerfile.dev
     # image: battles
     volumes: ["./src:/app/src",
               "./migrations:/app/migrations",

@@ -44,3 +44,19 @@ def seed_battles(csv_file_path=config.SEED_PATH):
                         logger.error('\nError adding row: \n{}'.format(row))
             except Exception as e:
                 logger.error(e)
+
+
+def export_battles_db_dump_to_csv(output_path=config.SEED_PATH):
+    '''
+    '''
+    logger = _getLogger('get_battle_by_id')
+    try:
+        with session_scope() as session:
+            battle = session.query(Battle) \
+                            .filter(Battle.id==id) \
+                            .one_or_none()
+            logger.debug('Battle retrieved for user: \n{}'.format(battle))
+            return battle
+    except (exc.SQLAlchemyError, AttributeError) as e:
+        logger.error(e)
+        return []  # return empty list to make the endpoint checking the result easier
