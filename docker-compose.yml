@@ -22,7 +22,7 @@ services:
     volumes: ["./src:/app/src",
               "./migrations:/app/migrations",
               ".env:/app/.env"]
-    ports: ["5000:5000"]
+    ports: ["3000:5000"]
     depends_on:
       - pgsql
     tty: true

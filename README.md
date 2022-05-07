@@ -91,4 +91,8 @@ ui process.env.REACT_APP_PROD_API_URL
 - battles are ordered, new players start at a random place in the order
 - can shuffle DB by adding an order column
 
+Issues:
+
+- Belligerent detection can be improved.
+
 https://github.com/AlecJ/ancient-battles

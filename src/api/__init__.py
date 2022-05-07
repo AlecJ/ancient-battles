@@ -46,7 +46,7 @@ class BattleAPI(Resource):
                 list_of_battle_ids = get_shuffled_list_of_battles(session)
                 # now fetch the first battle from the list
                 
-                if len(list_of_battle_ids) == 0:
+                if list_of_battle_ids is None or len(list_of_battle_ids) == 0:
                     error_msg = 'Empty list of battle IDs returned from get_shuffled_list_of_battles.'
                     logger.error(error_msg)
                     raise ValueError(error_msg)
